@@ -1,0 +1,62 @@
+PROBLEM STATEMENT
+Brand Audit Report AI Agent
+
+Student: Tushar Makhija
+Branch: B.E. Electronics and Communication
+Roll no.: 112-B
+Semester: IV
+
+
+USER
+Marketing managers, brand strategists, and startup founders
+who need to understand how their brand is perceived publicly.
+
+PROBLEM
+Conducting a comprehensive brand audit manually requires hours
+of research across review platforms, news sites, and social media,
+followed by manual synthesis into a structured report.
+This is slow, expensive, and inconsistent.
+
+CURRENT SOLUTION
+Manual research using Google, reading reviews on platforms like
+Trustpilot and Reddit, and writing reports in Word documents.
+Larger companies pay expensive consultants for this work.
+
+LIMITATIONS OF CURRENT APPROACH
+1. Takes days, not minutes
+2. Inconsistent quality depending on the analyst
+3. Cannot objectively process large volumes of text
+4. No standardized scoring rubric for report quality
+5. Expensive when outsourced to consultants
+
+WHY AN AI AGENT IS NEEDED
+A simple chatbot cannot solve this problem because:
+- It cannot search the live web for current brand data
+- It cannot decompose a complex task into specialized sub-tasks
+- It cannot self-evaluate the quality of its own output
+
+A multi-agent system with tool access solves all three
+limitations by using Tavily for live web search, four
+specialized agents for each analysis step, and an
+LLM-as-Judge for automated quality scoring.
+
+SOLUTION
+Brand Audit AI Agent — a multi-agent system that:
+1. Searches live web using Tavily API
+2. Uses Agent 1 to extract perception themes
+3. Uses Agent 2 to score sentiment across 5 dimensions
+4. Uses Agent 3 to write structured audit report
+5. Uses Agent 4 (LLM-as-Judge) to score report quality
+
+TECH STACK
+- LLM: Llama 3.3 70B via Groq LPU API
+- Search Tool: Tavily Search API
+- Frontend: Streamlit
+- Deployment: Railway
+- Language: Python 3.13
+
+LIVE DEMO
+https://web-production-782e2.up.railway.app
+
+GITHUB
+https://github.com/Anshuman3299/brand-audit-agent

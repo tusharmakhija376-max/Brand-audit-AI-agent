@@ -1,0 +1,117 @@
+TASK DECOMPOSITION AND SPECIFICATIONS
+Brand Audit Report AI Agent
+
+Student: Tushar Makhija
+Branch: B.E. Electronics and Communication
+Roll no.: 112-B
+Semester: IV
+
+SYSTEM OVERVIEW
+A 4-agent AI pipeline that takes a brand name as input
+and produces a scored brand audit report as output.
+Each agent has a specialized role and passes its output
+to the next agent in the pipeline.
+
+TASK 1 — WEB DATA COLLECTION
+Tool: Tavily Search API
+File: tools/search.py
+Input: Brand name string
+Process:
+  - Search 1: customer reviews and complaints
+  - Search 2: news and media coverage
+  - Search 3: social media sentiment
+Output: Dictionary with keys reviews, news, social
+Why Tavily: Purpose-built for LLM agents, returns
+clean structured text instead of raw HTML
+
+TASK 2 — PERCEPTION RESEARCH (Agent 1)
+Model: Llama 3.3 70B via Groq API
+Role: Expert Brand Perception Researcher
+Input: Raw Tavily search results dictionary
+Process:
+  - Extract top 5 recurring themes from reviews
+  - Identify significant news events
+  - Summarize social media sentiment
+  - Highlight reputation risks
+  - Note consistent brand strengths
+Output: 5-section structured perception report
+Key design decision: Separate agent ensures focused
+theme extraction without mixing with scoring tasks
+
+TASK 3 — SENTIMENT ANALYSIS (Agent 2)
+Model: Llama 3.3 70B via Groq API
+Role: Expert Brand Sentiment Analyst
+Input: Perception report from Agent 1
+Process:
+  - Score overall sentiment from 0 to 10
+  - Score Product/Service Quality out of 10
+  - Score Customer Service out of 10
+  - Score Brand Trust and Credibility out of 10
+  - Score Value for Money out of 10
+  - Score Social Responsibility out of 10
+  - Identify primary emotion
+  - Identify sentiment drivers
+  - Identify vulnerable customer segments
+Output: Quantified sentiment analysis with all scores
+Key design decision: Converts qualitative perception
+into measurable quantitative scores
+
+TASK 4 — AUDIT REPORT WRITING (Agent 3)
+Model: Llama 3.3 70B via Groq API
+Role: Senior Brand Strategy Consultant
+Input: Agent 1 output + Agent 2 output combined
+Process:
+  - Write Executive Summary
+  - Analyze Reputation with score out of 10
+  - Assess Messaging Consistency
+  - Identify Positioning Gaps
+  - Assess Competitive Threats
+  - Write Strategic Recommendations
+  - List Key Risk Factors
+Output: Complete 6-section brand audit report
+Key design decision: Receives both previous agent
+outputs to ensure report is grounded in data
+
+TASK 5 — QUALITY EVALUATION (Agent 4 — LLM-as-Judge)
+Model: Llama 3.3 70B via Groq API
+Role: Independent AI Evaluator
+Input: Full audit report from Agent 3
+Process:
+  - Score Objectivity out of 10
+  - Score Insight Depth out of 10
+  - Score Actionability out of 10
+  - Score Evidence Quality out of 10
+  - Score Structural Clarity out of 10
+  - Calculate total score out of 50
+  - Give verdict: EXCELLENT, GOOD, ADEQUATE,
+    or NEEDS IMPROVEMENT
+Output: Quality evaluation with scores and verdict
+Key design decision: Uses separate LLM call to
+independently evaluate output — LLM-as-Judge pattern
+prevents self-evaluation bias
+
+PIPELINE FLOW
+Brand Name Input
+      |
+Tavily Search (3 searches)
+      |
+Agent 1: Perception Researcher
+      |
+Agent 2: Sentiment Analyst
+      |
+Agent 3: Audit Report Writer
+      |
+Agent 4: LLM-as-Judge
+      |
+Final Scored Brand Audit Report
+
+RATE LIMITING
+3 second delay between each agent call
+Prevents Groq free tier quota exhaustion
+Ensures reliable pipeline execution
+
+DEPLOYMENT
+Platform: Railway
+URL: https://web-production-782e2.up.railway.app
+Environment variables: GROQ_API_KEY, TAVILY_API_KEY
+Auto-deploys from GitHub on every push
