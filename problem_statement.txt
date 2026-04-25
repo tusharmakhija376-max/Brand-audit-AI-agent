@@ -59,4 +59,4 @@ LIVE DEMO
 https://web-production-782e2.up.railway.app
 
 GITHUB
-https://github.com/Anshuman3299/brand-audit-agent
+https://github.com/tusharmakhija376-max/Brand-audit-AI-agent
